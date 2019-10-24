@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
+.aggregated-data-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.locations-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.map-image {
+}
+
+.locations-table {
+    margin-left: 20px;
+}

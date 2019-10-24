@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1>ShipLog: Canal Navigation Report</h1>
+        <p>Generated on: 24 October 2019</p>
+    </div>
+
+    <br>
+
+    <div class="locations-wrapper">
+        <img src="map.jpg" alt="" class="img-fluid map-image" />
+
+        <div class="locations-table">
+            <h2>Locations:</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Longitude</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (var i = 0; i < locations.length; i++) {%>
+                    <tr>
+                        <th scope="row"><%= i + 1 %></th>
+                        <td><%= locations[i].dateTimeOriginal %></td>
+                        <td><%= locations[i].latitude %></td>
+                        <td><%= locations[i].longitude %></td>
+                    </tr>
+                <%}%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2>Geolocation enabled images used to generate this report:</h2>
+
+    <div>
+        <% for (var i = 0; i < images.length; i++) { %>
+            <img src="<%= images[i] %>" alt="" class="col" style="max-width: 25%" />
+        <% } %>
+    </div>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</div>
+</body>
+</html>
