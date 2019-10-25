@@ -13,8 +13,27 @@
 }
 
 .map-image {
+    width: 50%;
 }
 
 .locations-table {
-    margin-left: 20px;
+    padding-left: 20px;
+    width: 50%;
+}
+
+.aggregated-data-badge {
+    display: flex;
+    flex-direction: column;
+    color: aliceblue;
+    background-color: #1abc9c;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+.aggregated-data-badge > p {
+    margin-bottom: 0;
 }

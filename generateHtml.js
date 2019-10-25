@@ -18,8 +18,6 @@ export default function generateHTML(config) {
   globP("templates/report.ejs")
     .then(files => {
       files.forEach(file => {
-        const fileData = path.parse(file);
-
         // create destination directory
         fse
           .mkdirs(distPath)

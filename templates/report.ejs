@@ -12,8 +12,22 @@
 
     <br>
 
+    <div class="aggregated-data-wrapper">
+        <div class="aggregated-data-badge">
+            <h3><%= totalDistance %></h3>
+            <p>Miles travelled</p>
+        </div>
+
+        <div class="aggregated-data-badge">
+            <h3><%= locations.length %></h3>
+            <p>Stops made</p>
+        </div>
+    </div>
+
+    <br>
+
     <div class="locations-wrapper">
-        <img src="map.jpg" alt="" class="img-fluid map-image" />
+        <img src="map.jpg" alt="" class="map-image" />
 
         <div class="locations-table">
             <h2>Locations:</h2>
@@ -41,13 +55,19 @@
         </div>
     </div>
 
+    <br>
+
     <h2>Geolocation enabled images used to generate this report:</h2>
 
-    <div>
+    <div class="row">
         <% for (var i = 0; i < images.length; i++) { %>
             <img src="<%= images[i] %>" alt="" class="col" style="max-width: 25%" />
         <% } %>
     </div>
+
+    <br>
+
+    <p>Generated using: ShipLog v1.0 created by Montague Monro</p>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </div>

@@ -98,73 +98,6 @@ function getDirections(latlngs) {
   });
 }
 
-function createTable(doc, data, width = 500) {
-  const startY = doc.y,
-    startX = doc.x,
-    distanceY = 15,
-    distanceX = 10;
-
-  doc.fontSize(12);
-
-  let currentY = startY;
-
-  data.forEach(value => {
-    let currentX = startX,
-      size = value.length;
-
-    let blockSize = width / size;
-
-    value.forEach(text => {
-      //Write text
-      doc.text(text, currentX + distanceX, currentY);
-
-      //Create rectangles
-      doc
-        .lineJoin("miter")
-        .rect(currentX, currentY, blockSize, distanceY)
-        .stroke();
-
-      currentX += blockSize;
-    });
-
-    currentY += distanceY;
-  });
-}
-
-function generatePDFDocument(config) {
-  const doc = new PDFDocument();
-  doc.pipe(fs.createWriteStream("generatedPDF.pdf"));
-  doc.fontSize(25).text("Canal Navigation Report");
-
-  doc
-    .fontSize(18)
-    .text(`Distance travelled: ${config.totalDistance.toFixed(1)} miles`);
-
-  createTable(
-    doc,
-    config.fileLatLngs.reduce(
-      (array, file) => {
-        return array.concat([
-          [
-            file.latitude.toFixed(4),
-            file.longitude.toFixed(4),
-            file.dateTimeOriginal
-          ]
-        ]);
-      },
-      [["latitude", "longitude", "date"]]
-    )
-  );
-
-  doc.text("____");
-
-  doc.image("./map.jpg", {
-    fit: [250, 300]
-  });
-
-  doc.end();
-}
-
 try {
   glob("images/*.jpg", null, (err, files) => {
     Promise.all(files.map(fetchExifImage)).then(fileLatLngs => {
@@ -177,24 +110,22 @@ try {
       const markersAsString = fileLatLngsSorted
         .map(
           (file, index) =>
-            `&markers=color:blue%7Clabel:${index}%7C${file.latitude},${file.longitude}`
+            `&markers=color:blue%7Clabel:${index + 1}%7C${file.latitude},${
+              file.longitude
+            }`
         )
         .join("");
 
       getDirections(fileLatLngsSorted).then(routePolyLineData => {
-        console.log(routePolyLineData.totalDistance);
         download(
           `https://maps.googleapis.com/maps/api/staticmap?size=800x500&maptype=roadmap${markersAsString}&path=weight:3|color:red|enc:${routePolyLineData.polylineData}&key=${GOOGLE_KEY}`,
           "./map.jpg",
           () => {
-            // generatePDFDocument({
-            //   fileLatLngs: fileLatLngsSorted,
-            //   totalDistance: routePolyLineData.totalDistance
-            // });
             generateHTML({
               foo: "bar",
               images: files,
-              locations: fileLatLngsSorted
+              locations: fileLatLngsSorted,
+              totalDistance: routePolyLineData.totalDistance.toFixed(1)
             });
             console.log("done");
           }
